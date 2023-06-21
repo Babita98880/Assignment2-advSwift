@@ -1,0 +1,100 @@
+//
+//  Question3.swift
+//  Assignment2-advSwift
+//
+//  Created by Cambrian on 2022-10-17.
+//
+
+import Foundation
+
+/**
+ create a parent class and a subclass
+ 
+ PARENT CLASS:
+ class name:
+ - Computer
+ attributes:
+ - cpu: String
+ - gpu: String
+ - ram: Int
+ - state: String = "Off"
+ - temp: Double
+ methods:
+ - init(cpu: String, gpu: String, ram: Int, temp: Double)
+ - upgradeRam(newAmount: Int)
+ - turnOn() => will set the state to 'On'
+ - turnOff() => will set the state to 'Off'
+ - getTemp() -> Double
+ */
+
+class Computer {
+    var cpu: String
+    var gpu: String
+    var ram: Int
+    var state: String
+    var temp: Double
+    
+    init(cpu: String, gpu: String, ram: Int, temp: Double) {
+        self.cpu = cpu
+        self.gpu = gpu
+        self.ram = ram
+        self.state = "Off"
+        self.temp = temp
+    }
+    
+    func upgradeRam(newAmount: Int) {
+        self.ram = newAmount
+    }
+    
+    func turnOn() {
+        self.state = "On"
+    }
+    
+    func turnOff() {
+        self.state = "Off"
+    }
+    
+    func getTemp() -> Double {
+        return temp
+    }
+}
+
+/**
+CHILD CLASS:
+ class name:
+ - Laptop
+ attributes:
+ - isRamUpgradable: Bool
+ - screenSize: Double
+ - isTouchScreen: Bool
+ methods:
+ - init(cpu: String, gpu: String, ram: Int, state: String, temp: Double, isRamUpgradable: Bool, screenSize: Double, isTouchScreen: Bool)
+ - override upgradeRam() => if the ram is not upgradable do nothing
+ - closeScreen() => this will set the laptop state to 'Sleep'
+ */
+
+class Laptop: Computer {
+    var isRamUpgradable: Bool
+    var screenSize: Double
+    var isTouchScreen: Bool
+    
+    init(cpu: String, gpu: String, ram: Int, state: String, temp: Double, isRamUpgradable: Bool, screenSize: Double, isTouchScreen: Bool) {
+        self.isRamUpgradable = isRamUpgradable
+        self.screenSize = screenSize
+        self.isTouchScreen = isTouchScreen
+        
+        super.init(cpu: cpu, gpu: gpu, ram: ram, temp: temp)
+        
+        self.state = state
+    }
+    
+    override func upgradeRam(newAmount: Int) {
+        if isRamUpgradable {
+            self.ram = newAmount
+        }
+    }
+    
+    func closeScreen() {
+        self.state = "Sleep"
+    }
+}
